@@ -239,6 +239,8 @@ class Tx_Solr_ContentObject_Relation {
 			$this->configuration['foreignLabelField'] = $backupField;
 			$parentContentObject->data                = $backupRecord;
 		}
+		
+		$value = $parentContentObject->stdWrap($value, $this->configuration);
 
 		return $value;
 	}
