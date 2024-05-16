@@ -214,7 +214,8 @@ class PageIndexer implements FrontendHelper, SingletonInterface
             $pageArguments,
             $tsfe,
             $this->generatePageUrl($pageArguments, $pageInformation, $tsfe),
-            $this->getAccessRootline(), $pageInformation->getMountPoint()
+            $this->getAccessRootline(),
+            $pageInformation->getMountPoint()
         );
         $document = $this->substitutePageDocument($document, $pageInformation->getPageRecord(), $indexQueueItem, $tsfe);
 
