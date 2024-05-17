@@ -1,0 +1,29 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" data-namespace-typo3-fluid="true">
+<tr>
+	<td>{item.uid}</td>
+	<td>{item.item_type}</td>
+	<td>{item.item_uid}</td>
+	<td>
+		<span class="badge badge-danger">{item.error_code}</span>
+	</td>
+	<td>{item.error_url}</td>
+	<td>
+		<f:link.action action="showError" arguments="{indexQueueItemId: item.uid}">
+			<f:translate key="solr.backend.index_queue_module.errors.show_button"/>
+		</f:link.action>
+	</td>
+	<td>
+		<div class="btn-group" role="group">
+			<a class="btn btn-default" title="Edit record"
+				href="{be:uri.editRecord(uid: item.item_uid, table: item.item_type)}">
+				<core:icon identifier="actions-open"/>
+			</a>
+			<a class="btn btn-default" title="Show record" target="_blank"
+				href="{item.error_url}">
+				<core:icon identifier="actions-eye"/>
+			</a>
+		</div>
+	</td>
+</tr>
+
+</html>

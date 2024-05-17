@@ -537,9 +537,9 @@ class Queue implements QueueInterface, QueueInitializationServiceAwareInterface
      * Marks an item as failed and causes the indexer to skip the item in the
      * next run.
      */
-    public function markItemAsFailed(ItemInterface|int|null $item, string $errorMessage = ''): int
+    public function markItemAsFailed(ItemInterface|int|null $item, string $errorMessage = '', string $url = '', int $returnCode = 0, array $returnHeaders = []): int
     {
-        return $this->queueItemRepository->markItemAsFailed($item, $errorMessage);
+        return $this->queueItemRepository->markItemAsFailed($item, $errorMessage, $url, $returnCode, $returnHeaders);
     }
 
     /**

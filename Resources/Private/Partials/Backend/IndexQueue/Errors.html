@@ -1,0 +1,40 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="row">
+	<div class="col-md-12">
+		<h2>
+			<f:translate key="solr.backend.index_queue_module.errors.headline"/>
+		</h2>
+
+		<table class="table table-condensed table-hover table-striped">
+			<tr>
+				<th>
+					<f:translate key="solr.backend.index_queue_module.errors.id"/>
+				</th>
+				<th>
+					<f:translate key="solr.backend.index_queue_module.errors.item_type"/>
+				</th>
+				<th>
+					<f:translate key="solr.backend.index_queue_module.errors.item_uid"/>
+				</th>
+				<th>
+					Error Code
+				</th>
+				<th>
+					Error URL
+				</th>
+				<th></th>
+				<th></th>
+			</tr>
+
+			<f:for each="{indexqueue_errors}" as="item">
+				<f:render partial="Backend/IndexQueue/Error" arguments="{_all}"/>
+			</f:for>
+		</table>
+
+		<f:form action="resetLogErrors" method="POST">
+			<f:form.submit class="btn btn-sm btn-default" value="{f:translate(key:'solr.backend.index_queue_module.errors.reset_button')}"/>
+		</f:form>
+
+	</div>
+</div>
+</html>

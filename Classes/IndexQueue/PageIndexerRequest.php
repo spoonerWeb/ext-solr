@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace ApacheSolrForTypo3\Solr\IndexQueue;
 
+use ApacheSolrForTypo3\Solr\Exception\IndexingErrorException;
 use ApacheSolrForTypo3\Solr\System\Configuration\ExtensionConfiguration;
 use ApacheSolrForTypo3\Solr\System\Logging\SolrLogManager;
 use Exception;
@@ -182,7 +183,7 @@ class PageIndexerRequest
                 ]
             );
 
-            throw new RuntimeException('Failed to execute Page Indexer Request. See log for details. Request ID: ' . $this->requestId, 1319116885);
+            throw new IndexingErrorException('Failed to execute Page Indexer Request. See log for details. Request ID: ' . $this->requestId, 1319116885, null, $url, $rawResponse->getStatusCode(), $rawResponse->getHeaders());
         }
         return $decodedResponse;
     }

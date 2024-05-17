@@ -105,7 +105,11 @@ class IndexService
                 $this->eventDispatcher->dispatch($afterIndexItemEvent);
             } catch (Throwable $e) {
                 $errors++;
-                $this->indexQueue->markItemAsFailed($itemToIndex, $e->getCode() . ': ' . $e->__toString());
+                if ($e instanceof \ApacheSolrForTypo3\Solr\Exception\IndexingErrorException) {
+                    $this->indexQueue->markItemAsFailed($itemToIndex, $e->getCode() . ': ' . $e->__toString(), $e->getResponseUrl(), $e->getResponseCode(), $e->getResponseHeaders());
+                } else {
+                    $this->indexQueue->markItemAsFailed($itemToIndex, $e->getCode() . ': ' . $e->__toString());
+                }
                 $this->generateIndexingErrorLog($itemToIndex, $e);
             }
         }

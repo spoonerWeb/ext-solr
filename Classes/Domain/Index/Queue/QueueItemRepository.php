@@ -83,7 +83,7 @@ class QueueItemRepository extends AbstractRepository
     {
         $queryBuilder = $this->getQueryBuilder();
         return $queryBuilder
-            ->select('uid', 'item_type', 'item_uid', 'errors')
+            ->select('uid', 'item_type', 'item_uid', 'errors', 'error_code', 'error_url', 'error_headers')
             ->from($this->table)
             ->andWhere(
                 $queryBuilder->expr()->notLike('errors', $queryBuilder->createNamedParameter('')),
@@ -751,7 +751,7 @@ class QueueItemRepository extends AbstractRepository
      * Marks an item as failed and causes the indexer to skip the item in the
      * next run.
      */
-    public function markItemAsFailed(ItemInterface|int|null $item, string $errorMessage = ''): int
+    public function markItemAsFailed(ItemInterface|int|null $item, string $errorMessage = '', string $url = '', int $returnCode = 0, array $returnHeaders = []): int
     {
         $itemUid = ($item instanceof Item) ? $item->getIndexQueueUid() : (int)$item;
         $errorMessage = empty($errorMessage) ? '1' : $errorMessage;
@@ -760,6 +760,9 @@ class QueueItemRepository extends AbstractRepository
         return $queryBuilder
             ->update($this->table)
             ->set('errors', $errorMessage)
+            ->set('error_url', $url)
+            ->set('error_code', $returnCode)
+            ->set('error_headers', json_encode($returnHeaders))
             ->where($queryBuilder->expr()->eq('uid', $itemUid))
             ->executeStatement();
     }
